@@ -1,0 +1,81 @@
+import java.util.Scanner;
+class HotelTableBookingSystem {
+    private static final int TOTAL_TABLES = 10;
+    private boolean[] tables = new boolean[TOTAL_TABLES];
+    public void viewAvailableTables() {
+        System.out.println("\nAvailable Tables:");
+        boolean anyAvailable = false;
+ 
+for (int i = 0; i < TOTAL_TABLES; i++) {
+            if (!tables[i]) {
+                System.out.println("Table " + (i + 1) + " is available.");
+                anyAvailable = true;
+            }
+        }
+if (!anyAvailable) {
+            System.out.println("No tables are currently available.");
+        }  }
+public void bookTable(Scanner scanner) {
+        System.out.println("\nEnter the table number you want to book (1-" + TOTAL_TABLES + "): ");
+        int tableNumber = scanner.nextInt();
+
+        if (tableNumber < 1 || tableNumber > TOTAL_TABLES) {
+            System.out.println("Invalid table number. Please enter a number between 1 and " + TOTAL_TABLES + ".");
+        } else if (tables[tableNumber - 1]) {
+            System.out.println("Table " + tableNumber + " is already booked.");
+} else {
+            tables[tableNumber - 1] = true;
+            System.out.println("Table " + tableNumber + " has been successfully booked.");
+        } }
+    public void viewBookings() {
+        System.out.println("\nCurrent Bookings:");
+
+        boolean anyBooked = false;
+
+        for (int i = 0; i < TOTAL_TABLES; i++) {
+            if (tables[i]) {
+                System.out.println("Table " + (i + 1) + " is booked.");
+                anyBooked = true;
+            } }
+ if (!anyBooked) {
+            System.out.println("No tables are currently booked.");
+        } } }
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        HotelTableBookingSystem bookingSystem = new HotelTableBookingSystem();
+        boolean exit = false;
+
+        System.out.println("Welcome to the Hotel Table Booking System");
+
+        while (!exit) {
+            System.out.println("\nPlease choose an option:");
+            System.out.println("1. View Available Tables");
+System.out.println("2. Book a Table");
+            System.out.println("3. View Bookings");
+            System.out.println("4. Exit");
+
+            int choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    bookingSystem.viewAvailableTables();
+                    break;
+                case 2:
+                    bookingSystem.bookTable(scanner);
+                    break;
+                case 3:
+                    bookingSystem.viewBookings();
+                    break;
+case 4:
+                    System.out.println("Thank you for using the system. Goodbye!");
+                    exit = true;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+
+        scanner.close();
+    }
+}
+
